@@ -9,6 +9,9 @@ def all_users():
     every_user = [user.to_dict() for user in users]
     return jsonify(users=every_user)
 
+@app.route("/")
+def index():
+    return jsonify({ "status": "actives"})
 
 @app.route("/update_user/<int:user_id>", methods=["PUT"])
 def update_user(user_id):
