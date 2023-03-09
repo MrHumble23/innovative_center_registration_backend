@@ -9,9 +9,11 @@ def all_users():
     every_user = [user.to_dict() for user in users]
     return jsonify(users=every_user)
 
+
 @app.route("/")
 def index():
-    return jsonify({ "status": "actives"})
+    return jsonify({"status": "actives"})
+
 
 @app.route("/update_user/<int:user_id>", methods=["PUT"])
 def update_user(user_id):
@@ -61,23 +63,22 @@ def delete(user_id):
         return jsonify(error={"Forbidden": "Sorry, that's not allowed. Make sure you have the correct api_key."}), 403
 
 
-@app.route("/add", methods=["POST"])
+@app.route("/api/add_user", methods=["POST"])
 def add_new_user():
     b = request.files['image']
     print(b)
-    # c = request.form.get('image')
-    # print(c)
-    # run $ flask run  -h 0.0.0.0 -p 8000
     new_user = User(
-        image=request.form.get("image"),
-        name=request.form.get("name"),
-        birthdate=request.form.get("birthdate"),
+        first_name=request.form.get("first_name"),
+        last_name=request.form.get("last_name"),
         gender=request.form.get("gender"),
-        country=request.form.get("country"),
+        passport_number=request.form.get("passport_num"),
+        date_of_birth=request.form.get("date_of_birth"),
         region=request.form.get("region"),
         phone=request.form.get("phone"),
         email=request.form.get("email"),
-
+        image=request.form.get("image"),
+        is_paid=request.form.get("is_paid"),
+        exam_type=request.form.get("exam_type")
     )
     db.session.add(new_user)
     db.session.commit()
@@ -93,6 +94,3 @@ def search_user():
         return jsonify(users=[user.to_dict() for user in users])
     else:
         return jsonify(error={"Not Found": "Sorry, we don't have a user at that location."})
-
-
-
