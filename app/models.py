@@ -16,6 +16,17 @@ class User(db.Model):
     is_paid = db.Column(db.Boolean(), nullable=False, default=False)
     exam_type = db.Column(db.String(250), nullable=False)
 
+    def to_dict(self):  # automatic calling the dict (creating a func)
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
+
+
+class Exam(db.Model):
+    __tablename__ = 'exams'
+    id = db.Column(db.Integer, primary_key=True)
+    exam_type = db.Column(db.String(150), nullable=False)
+    start_date = db.Column(db.String(150), nullable=False)
+    end_date = db.Column(db.String(15), nullable=False)
+    price = db.Column(db.String(), nullable=False)
 
     def to_dict(self):  # automatic calling the dict (creating a func)
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
