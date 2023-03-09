@@ -12,7 +12,7 @@ class User(db.Model):
     region = db.Column(db.String(100), nullable=True)
     phone = db.Column(db.String(100), nullable=True)
     email = db.Column(db.String(100), nullable=True, unique=True)
-
+//
     def to_dict(self):  # automatic calling the dict (creating a func)
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
